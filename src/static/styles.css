@@ -79,3 +79,91 @@
     }
   }
 
+/* PACKAGE */
+
+/* .course-card:hover{
+    border-color: rgba(52, 211, 153);
+    box-shadow:  0 4px 8px rgba(52, 211, 153);
+} */
+
+/* FOOTER */
+
+.contact-txt {
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .contact-txt:hover{
+    color: rgba(16, 185, 129);
+  }
+
+  .contact-txt {
+    &::after {
+      content: "";
+      border-bottom: solid 4px rgba(16, 185, 129);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 75%;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+  
+    &:hover {
+      &::after {
+        transform-origin: right;
+        transform: scaleX(1);
+      }
+    }
+  
+    @keyframes contact-txt {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+.site-txt {
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+  }
+
+.site-txt:hover{
+    color: rgba(16, 185, 129);
+}
+
+.site-txt {
+    &::after {
+      content: "";
+      border-bottom: solid 4px rgba(16, 185, 129);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+  
+    &:hover {
+      &::after {
+        transform-origin: right;
+        transform: scaleX(1);
+      }
+    }
+  
+    @keyframes site-txt {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+  }

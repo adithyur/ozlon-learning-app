@@ -6,8 +6,9 @@ import { TbArrowBadgeDown, TbCircleNumber1Filled, TbCircleNumber2Filled, TbCircl
 import { GiOnTarget } from "react-icons/gi";
 import { RiTeamLine } from "react-icons/ri";
 
-import { FaDollarSign, FaHeadset, FaUserGraduate, FaHandsHelping } from 'react-icons/fa';
-import { MdSecurity, MdHighQuality, MdAccessTime } from 'react-icons/md';
+import { FaUserGraduate, FaHandsHelping, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
+import { MdSecurity, MdDateRange, MdVerified } from 'react-icons/md';
+import { GiTeacher, GiBookPile } from 'react-icons/gi';
 
 import '../static/styles.css'
 
@@ -70,29 +71,59 @@ function Home() {
     loop: { reverse: true }
   });
 
+  const packages = [
+    {
+      level: "Class 1-5",
+      subjects: "All Subjects",
+      options: [
+        { ratio: "1 Student - 1 Teacher", icon: <GiBookPile size={40} />, description: "Personalized one-on-one tutoring for all subjects. Tailored learning plans. Flexible scheduling." },
+        { ratio: "4 Students - 1 Teacher", icon: <RiTeamLine size={40} />, description: "Small group sessions for personalized attention. Collaborative learning environment. All subjects covered with interactive lessons." },
+        { ratio: "10 Students - 1 Teacher", icon: <GiTeacher size={40} />, description: "Group learning with peers. Engaging and interactive classes for all subjects. Balanced teacher-student interaction." },
+      ],
+    },
+    {
+      level: "Class 6-9",
+      subjects: "All Subjects",
+      options: [
+        { ratio: "1 Student - 1 Teacher", icon: <GiBookPile size={40} />, description: "Individualized tutoring across all subjects. Customized study plans to meet each student's needs. Focus on critical thinking and problem-solving skills." },
+        { ratio: "4 Students - 1 Teacher", icon: <RiTeamLine size={40} />, description: "Small group instruction for better engagement. Enhanced peer interaction alongside teacher guidance. Comprehensive coverage of all subjects." },
+        { ratio: "10 Students - 1 Teacher", icon: <GiTeacher size={40} />, description: "Group classes that encourage discussion and interaction. All subjects taught with a focus on core concepts. Balance between individual attention and group learning." },
+      ],
+    },
+    {
+      level: "Class 11-12",
+      subjects: "Maths, English, Physics, Chemistry, Biology, Computer Science",
+      options: [
+        { ratio: "10 Students - 1 Teacher", icon: <GiTeacher size={40} />, description: "Group classes that encourage discussion and interaction. Focused instruction on Maths, English, Physics, Chemistry, Biology, and Computer Science. Engaging and collaborative learning environment." },
+      ],
+    },
+  ];
+
+  const currentYear = new Date().getFullYear();
+
   return (
     <div>
 
         {/* NAVBAR */}
 
-        <div className={` ${isScrolled ? 'bg-white' : 'bg-transparent'}`}>
+        <div className={`fixed w-full top-0 z-50 ${isScrolled ? 'bg-white' : 'bg-transparent'}`}>
             <div className={isScrolled ? 'container mx-auto' : 'mx-auto max-w-8xl px-4 sm:px-6 md:px-8 lg:px-10'}>
                 <div className="mx-auto max-w-8xl px-4 sm:px-6 md:px-8 lg:px-10">
-                    <div className='flex items-center justify-between h-24 mt-5'>
+                    <div className='flex items-center justify-between h-24'>
                         <div className="flex-shrink-0 navbar-logo">
                             <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
                         </div>
                         <div className="hidden sm:block sm:ml-6 md:flex md:ml-6">
                             <div className="flex flex-grow justify-between navbar-opt">
-                                <a href="#home" className="text-white md:text-green-500 mx-3 md:mx-5 md:mx-3 lg:mx-8 text-sm text-sm md:text-base lg:text-xl font-bold nav-txt">HOME</a>
-                                <a href="#about" className="text-gray-800 mx-3 md:mx-3 lg:mx-8 text-sm md:text-base lg:text-xl font-bold nav-txt">ABOUT US</a>
-                                <a href="#package" className="text-gray-800 mx-3 rounded-md md:mx-3 lg:mx-8 text-sm md:text-base lg:text-xl font-bold nav-txt">PACKAGE</a>
-                                <a href="#contact" className="text-gray-800 mx-3 rounded-md md:mx-3 lg:mx-8 text-sm md:text-base lg:text-xl font-bold nav-txt">CONTACT US</a>
+                                <a href="#home" className="text-white md:text-green-500 mx-3 md:mx-5 md:mx-3 lg:mx-8 text-sm text-sm md:text-base lg:text-lg xl:text-xl font-bold nav-txt">HOME</a>
+                                <a href="#about" className="text-gray-800 mx-3 md:mx-3 lg:mx-8 text-sm md:text-sm lg:text-lg xl:text-xl font-bold nav-txt">ABOUT US</a>
+                                <a href="#programs" className="text-gray-800 mx-3 rounded-md md:mx-3 lg:mx-8 text-sm md:text-sm lg:text-lg xl:text-xl font-bold nav-txt">PROGRAMS</a>
+                                <a href="#contact" className="text-gray-800 mx-3 rounded-md md:mx-3 lg:mx-8 text-sm md:text-sm lg:text-lg xl:text-xl font-bold nav-txt">CONTACT US</a>
                             </div>
                         </div>
                         <div>
                         <Button
-                            className='bg-white rounded-lg border border-green-400 font-bold text-green-400 px-4 py-4 nav-bk-btn'
+                            className='bg-green-400 rounded-lg border border-green-400 font-bold text-white px-4 py-4 nav-bk-btn'
                             onClick={handleButtonClick}
                         >
                             BOOK A FREE TRIAL
@@ -120,12 +151,12 @@ function Home() {
                         </div>
                     </div>    
                 </div>
-                <div className={mobileMenuOpen ? 'block' : 'hidden'} id="mobile-menu">
-                    <div className="px-2 pt-2 pb-3 space-y-1">
-                    <a href="#" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-bold">Dashboard</a>
-                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-bold">Team</a>
-                    <a href="#projects" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-bold">Projects</a>
-                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-bold">Calendar</a>
+                <div className={mobileMenuOpen ? 'block' : 'hidden'} id="mobile-menu" >
+                    <div className="bg-white px-2 pt-2 pb-3 space-y-1">
+                        <a href="#home" className="bg-green-900 text-white block px-3 py-2 rounded-md text-base font-bold">HOME</a>
+                        <a href="#about" className="text-gray-300 hover:bg-green-900 hover:text-white block px-3 py-2 rounded-md text-base font-bold">ABOUT US</a>
+                        <a href="#programs" className="text-gray-300 hover:bg-green-900 hover:text-white block px-3 py-2 rounded-md text-base font-bold">PROGRAMS</a>
+                        <a href="#contact" className="text-gray-300 hover:bg-green-900 hover:text-white block px-3 py-2 rounded-md text-base font-bold">CONTACT US</a>
                     </div>
                 </div>
             </div>
@@ -141,7 +172,7 @@ function Home() {
                         <h1 className='hidden sm:hidden md:block lg:block xl:block text-2xl font-bold tracking-wide md:my-10 md:ms-10 md:text-5xl lg:text-6xl lg:ms-14 lg:mt-24 text-black'>
                             Providing Best <br/> Education For <br/> <span className='text-green-800'> Brighter Future </span>
                         </h1>
-                        <h1 className='sm:block md:hidden lg:hidden xl:hidden text-2xl font-bold tracking-wide md:my-10 md:ms-10 md:text-5xl lg:text-6xl lg:ms-14 lg:mt-24 text-black'>
+                        <h1 className='mt-10 sm:block md:hidden lg:hidden xl:hidden text-2xl font-bold tracking-wide md:my-10 md:ms-10 md:text-5xl lg:text-6xl lg:ms-14 lg:mt-24 text-black'>
                             Providing Best Education For <span className='text-green-800'> Brighter Future </span>
                         </h1>
                         <animated.img
@@ -157,11 +188,11 @@ function Home() {
                     <p className='hidden sm:hidden md:block lg:hidden xl:hidden text-lg font-bold md:tracking-normal lg:tracking-wide md:my-10 md:ms-10 md:text-base lg:text-l lg:ms-14 lg:mt-4 text-black'>
                         Empowering students with unparalleled educational opportunities, we strive to pave the way for a brighter <br/> future through our  commitment to providing the highest quality education.
                     </p>
-                    <p className='sm:block md:hidden lg:hidden xl:hidden text-sm mt-10 font-bold tracking-normal lg:tracking-wide md:my-10 md:ms-10 md:text-base lg:text-l lg:ms-14 lg:mt-4 text-black'>
-                        Empowering students with unparalleled educational opportunities, we strive to pave the way for a brighter <br/> future through our  commitment to providing the highest quality education.
+                    <p className='max-w-lg sm:block md:hidden lg:hidden xl:hidden text-sm mt-10 font-bold tracking-normal lg:tracking-wide md:my-10 md:ms-10 md:text-base lg:text-l lg:ms-14 lg:mt-4 text-black'>
+                        Empowering students with unparalleled educational opportunities, we strive to pave the way for a brighter future through our  commitment to providing the highest quality education.
                     </p>
                     <Button
-                            className='flex bg-white rounded-lg border border-green-400 font-bold text-green-400 lg:ms-16 lg:px-8 py-4 explr-btn'
+                            className='mt-10 flex bg-green-400 rounded-lg border border-green-400 font-bold text-white lg:ms-16 lg:px-8 py-4 explr-btn'
                             onClick={handleEXPLOREButtonClick}
                     >
                         EXPLORE MORE <TbArrowBadgeDown size={24} className='ms-1'/>
@@ -198,137 +229,214 @@ function Home() {
                 </div>
             </div>
         </div>
-    {/* END OF HOME */}
+        {/* END OF HOME */}
 
-    {/* ABOUT */}
-    <div id='about' className='container mx-auto mt-14'>
-        <div className='text-center'>
-            <h1 className='text-2xl px-6 md:px-6 font-extrabold tracking-wide md:text-3xl lg:text-4xl lg:mt-24 text-black'>
-                ABOUT US
-            </h1>
-            <p className='text-sm px-6 md:px-6 mt-10 font-bold tracking-normal lg:tracking-wide md:my-10 md:ms-10 md:text-xl lg:text-2xl lg:ms-14 lg:mt-4 text-black'>
-                Welcome to <span className='text-green-800'> OZLON </span>, where learning knows no boundaries!
+        {/* ABOUT */}
+        <div id='about' className='container mx-auto mt-14'>
+            <div className='text-center'>
+                <h1 className='text-2xl px-6 md:px-6 font-extrabold tracking-wide md:text-3xl lg:text-4xl lg:mt-24 text-black'>
+                    ABOUT US
+                </h1>
+                <p className='text-sm px-6 md:px-6 mt-10 font-bold tracking-normal lg:tracking-wide md:my-10 md:ms-10 md:text-xl lg:text-2xl lg:ms-14 lg:mt-4 text-black'>
+                    Welcome to <span className='text-green-800'> OZLON </span>, where learning knows no boundaries!
+                </p>
+            </div>
+            <div className="flex mt-20">
+                <div className="max-w-full flex flex-col lg:flex-row gap-16 px-5 lg:px-8">
+                    <animated.img
+                        src={`${process.env.PUBLIC_URL}/about-arrow.png`}
+                        className='hidden sm:hidden md:hidden lg:block xl:block about-arrow mt-24 ms-8 -ml-16'
+                        alt='Home'
+                        style={aboutrightanimationProps}
+                    />                
+                    <div className='border border-gray-300 rounded-md shadow-md rounded-lg bg-green-100'>
+                        <h3 className="mt-4 flex flex-col items-center justify-center text-xl font-bold text-center">
+                            <div className='bg-green-100 rounded-full h-24 w-24'>
+                                <GiOnTarget size={40} className='about-icon mx-6 my-7'/>
+                            </div> 
+                            Our Mission
+                        </h3>
+                        <p className="mx-12 pt-4 pb-8 text-gray-600 text-lg text-justify">
+                            At Ozlon, our mission is to revolutionize education by providing high-quality online tutoring services that empower students to achieve their academic goals. We believe in personalized learning experiences that inspire curiosity, foster critical thinking, and promote academic success.
+                        </p>
+                    </div>
+                    <div className='border border-gray-300 rounded-md shadow-md rounded-lg bg-green-100'>
+                        <h3 className="mt-4 flex flex-col items-center justify-center text-xl font-bold text-center">
+                            <div className='bg-green-100 rounded-full h-24 w-24'>
+                                <RiTeamLine size={40} className='about-icon mx-7 my-7' />
+                            </div> 
+                            Who We Are
+                        </h3>
+                        <p className="mx-12 pt-4 pb-8 text-gray-600 text-lg text-justify">
+                            We are a team of passionate educators, technologists, and innovators dedicated to reimagining the future of education. With years of experience in both traditional and online learning environments, we are committed to providing engaging, accessible, and effective solutions.
+                        </p>
+                    </div>
+                    <animated.img
+                        src={`${process.env.PUBLIC_URL}/about-arrow2.png`}
+                        className='hidden sm:hidden md:hidden lg:block xl:block about-arrow -mt-24'
+                        alt='Home'
+                        style={aboutleftanimationProps}
+                    />
+                </div>
+            </div>
+
+            <div className="max-w-7xl mx-auto mt-20 p-8 bg-gray-100 rounded-lg shadow-lg">
+      <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">What We Offer</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex items-center space-x-4">
+          <FaUserGraduate size={40} className="text-green-500" />
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Expert Tutors</h3>
+            <p className="text-gray-600">Learn from industry experts and experienced educators.</p>
+          </div>
+        </div>
+        <div className="flex items-center space-x-4">
+          <FaHandsHelping size={40} className="text-green-500" />
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Interactive Learning</h3>
+            <p className="text-gray-600">Engage in interactive and enjoyable learning experiences.</p>
+          </div>
+        </div>
+        <div className="flex items-center space-x-4">
+          <MdSecurity size={40} className="text-green-500" />
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Safe and Secure</h3>
+            <p className="text-gray-600">Your data and privacy are our top priority.</p>
+          </div>
+        </div>
+        <div className="flex items-center space-x-4">
+          <MdDateRange size={40} className="text-green-500" />
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Book a Seat after Free Trial</h3>
+            <p className="text-gray-600">Try our services with a free trial before you book a seat.</p>
+          </div>
+        </div>
+        <div className="flex items-center space-x-4">
+          <MdVerified size={40} className="text-green-500" />
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Quality Assurance</h3>
+            <p className="text-gray-600">We ensure the best quality in all our services.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+            <div className='lg:mx-24'>
+                <h1 className='text-2xl mt-8 ms-4 font-bold tracking-wide md:text-3xl lg:text-4xl lg:mt-24 text-black'>
+                    Why Students Choose Us for Gaining Knowledge !
+                </h1>
+                <div className='flex justify-between flex-col md:flex-col lg:flex-row'>
+                    <div className='mt-16 mx-5'>
+                        <img src={`${process.env.PUBLIC_URL}/about.png`} alt='Home'/>
+                    </div>
+                    <div className='flex flex-col'>
+                        <div className="flex items-center space-x-4 border border-gray-300 lg:h-20 lg:ps-5 mx-5 lg:mt-20 rounded-md shadow-md rounded-lg bg-green-100">
+                            <TbCircleNumber1Filled size={40} className="text-green-500" />
+                            <div>
+                                <h3 className="text-xl font-semibold text-gray-900">Affordable Pricing</h3>
+                                <p className="text-gray-600">High-quality education at prices you can afford.</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center space-x-4 border border-gray-300 lg:h-20 lg:ps-5 mx-5 mt-5 lg:mt-12 rounded-md shadow-md rounded-lg bg-green-100">
+                            <TbCircleNumber2Filled size={40} className="text-green-500" />
+                            <div className='justify-items-center'>
+                                <h3 className="text-xl font-semibold text-gray-900">Customer Support</h3>
+                                <p className="text-gray-600">24/7 support to help you with all your queries.</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center space-x-4 border border-gray-300 lg:h-20 lg:ps-5 mx-5 mt-5 lg:mt-12 rounded-md shadow-md rounded-lg bg-green-100">
+                            <TbCircleNumber3Filled size={40} className="text-green-500" />
+                            <div>
+                                <h3 className="text-xl font-semibold text-gray-900">Topper Prizes</h3>
+                                <p className="text-gray-600">We reward our top-performing students with exciting prizes.</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center space-x-4 border border-gray-300 lg:h-20 lg:ps-5 mx-5 mt-5 lg:mt-12 rounded-md shadow-md rounded-lg bg-green-100">
+                            <TbCircleNumber4Filled size={40} className="text-green-500" />
+                            <div>
+                                <h3 className="text-xl font-semibold text-gray-900">Flexible Scheduling</h3>
+                                <p className="text-gray-600">Learn at your own pace with flexible scheduling options.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {/* END OF ABOUT */}
+
+        {/* PACKAGE */}
+        <div id='programs' className='bg-white'>
+            <div className="max-w-6xl mx-auto mt-20 p-8">
+                <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">PROGRAMS</h2>
+                {packages.map((pkg, index) => (
+                    <div key={index} className="mb-12">
+                        <h3 className="text-3xl font-semibold text-gray-900 mb-8">{pkg.level} - {pkg.subjects}</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {pkg.options.map((option, idx) => (
+                            <div key={idx} className="p-8 border border-gray-300 rounded-lg shadow-md bg-white flex flex-col items-center text-center transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:border-green-600">
+                                <div className="text-green-600 mb-4">
+                                    {option.icon}
+                                </div>
+                                <h4 className="text-2xl font-bold text-green-600 mb-4">{option.ratio}</h4>
+                                <p className="text-gray-700">{option.description}</p>
+                            </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+        {/* END OF PACKAGE*/}
+
+        {/* CONTACT + FOOTER */}
+        <div id='contact'>
+        <footer className="bg-gray-900 text-gray-200 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-between">
+        {/* Contact Us Section */}
+        <div className="w-full md:w-1/2 lg:w-1/3 mb-8 leading-relaxed">
+            <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
+            <p className="mb-2 flex items-center contact-txt text-sm md:text-base lg:text-base">
+                <FaMapMarkerAlt className="text-green-500 mr-2" />
+                <strong>Address:</strong> &nbsp; Adoor, Pathanamthitta, Kerala
+            </p>
+            <p className="mb-2 flex items-center contact-txt text-sm md:text-base lg:text-base">
+                <FaPhoneAlt className="text-green-500 mr-2" />
+                <strong>Phone:</strong> &nbsp; +123 456 7890
+            </p>
+            <p className="mb-2 flex items-center contact-txt text-sm md:text-base lg:text-base">
+                <FaEnvelope className="text-green-500 mr-2" />
+                <strong>Email:</strong> &nbsp; ozlonlearningapp@gmail.com
             </p>
         </div>
-        <div className="flex mt-20">
-            <div className="max-w-full flex flex-col lg:flex-row gap-16 px-5 lg:px-8">
-                <animated.img
-                    src={`${process.env.PUBLIC_URL}/about-arrow.png`}
-                    className='hidden sm:hidden md:hidden lg:block xl:block about-arrow mt-24 ms-8 -ml-16'
-                    alt='Home'
-                    style={aboutrightanimationProps}
-                />                
-                <div className='border border-gray-300 rounded-md shadow-md rounded-lg bg-green-100'>
-                    <h3 className="mt-4 flex flex-col items-center justify-center text-xl font-bold text-center">
-                        <div className='bg-green-100 rounded-full h-24 w-24'>
-                            <GiOnTarget size={40} className='about-icon mx-6 my-7'/>
-                        </div> 
-                        Our Mission
-                    </h3>
-                    <p className="mx-12 pt-4 pb-8 text-gray-600 text-lg text-justify">
-                        At Ozlon, our mission is to revolutionize education by providing high-quality online tutoring services that empower students to achieve their academic goals. We believe in personalized learning experiences that inspire curiosity, foster critical thinking, and promote academic success.
-                    </p>
-                </div>
-                <div className='border border-gray-300 rounded-md shadow-md rounded-lg bg-green-100'>
-                    <h3 className="mt-4 flex flex-col items-center justify-center text-xl font-bold text-center">
-                        <div className='bg-green-100 rounded-full h-24 w-24'>
-                            <RiTeamLine size={40} className='about-icon mx-7 my-7' />
-                        </div> 
-                        Who We Are
-                    </h3>
-                    <p className="mx-12 pt-4 pb-8 text-gray-600 text-lg text-justify">
-                        We are a team of passionate educators, technologists, and innovators dedicated to reimagining the future of education. With years of experience in both traditional and online learning environments, we are committed to providing engaging, accessible, and effective solutions.
-                    </p>
-                </div>
-                <animated.img
-                    src={`${process.env.PUBLIC_URL}/about-arrow2.png`}
-                    className='hidden sm:hidden md:hidden lg:block xl:block about-arrow -mt-24'
-                    alt='Home'
-                    style={aboutleftanimationProps}
-                />
-            </div>
-        </div>
 
-        <div className="max-w-7xl mx-auto mt-20 p-8 bg-gray-100 rounded-lg shadow-lg">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-                What We Offer
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="flex items-center space-x-4">
-                    <FaUserGraduate size={40} className="text-green-500" />
-                    <div>
-                        <h3 className="text-xl font-semibold text-gray-900">Expert Tutors</h3>
-                        <p className="text-gray-600">Learn from industry experts and experienced educators.</p>
-                    </div>
-                </div>
-                <div className="flex items-center space-x-4">
-                    <FaHandsHelping size={40} className="text-green-500" />
-                    <div>
-                        <h3 className="text-xl font-semibold text-gray-900">Interactive Learning</h3>
-                        <p className="text-gray-600">Engage in interactive and enjoyable learning experiences.</p>
-                    </div>
-                </div>
-                <div className="flex items-center space-x-4">
-                    <MdSecurity size={40} className="text-green-500" />
-                    <div>
-                        <h3 className="text-xl font-semibold text-green-900">Safe and Secure</h3>
-                        <p className="text-gray-600">Your data and privacy are our top priority.</p>
-                    </div>
-                </div>
-            </div>
+        {/* Site Map Section */}
+        <div className="w-full md:w-1/2 lg:w-1/3 mb-8 leading-relaxed">
+          <h2 className="text-2xl font-semibold mb-4">Site Map</h2>
+          <ul className="space-y-2">
+            <li><a href="#home" className="site-txt tracking-wide">HOME</a></li>
+            <li><a href="#" className="site-txt tracking-wide">ABOUT US</a></li>
+            <li><a href="#" className="site-txt tracking-wide">PROGRAMS</a></li>
+            <li><a href="#" className="site-txt tracking-wide">CONTACT US</a></li>
+          </ul>
         </div>
-        <div className='lg:mx-24'>
-            <h1 className='text-2xl font-bold tracking-wide md:text-3xl lg:text-4xl lg:mt-24 text-black'>
-                Why Students Choose Us for Gaining Knowledge !
-            </h1>
-            <div className='flex justify-between sm:flex-col md:flex-row lg:flex-row'>
-                <div className='mt-16'>
-                    <img src={`${process.env.PUBLIC_URL}/about.png`} alt='Home'/>
-                </div>
-                <div className='flex flex-col'>
-                    <div className="flex items-center space-x-4 border border-gray-300 lg:h-20 lg:ps-5 lg:mt-20 rounded-md shadow-md rounded-lg bg-green-100">
-                        <TbCircleNumber1Filled size={40} className="text-green-500" />
-                        <div>
-                            <h3 className="text-xl font-semibold text-gray-900">Affordable Pricing</h3>
-                            <p className="text-gray-600">High-quality education at prices you can afford.</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center space-x-4 border border-gray-300 lg:h-20 lg:ps-5 lg:mt-12 rounded-md shadow-md rounded-lg bg-green-100">
-                        <TbCircleNumber2Filled size={40} className="text-green-500" />
-                        <div className='justify-items-center'>
-                            <h3 className="text-xl font-semibold text-gray-900">Customer Support</h3>
-                            <p className="text-gray-600">24/7 support to help you with all your queries.</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center space-x-4 border border-gray-300 lg:h-20 lg:ps-5 lg:mt-12 rounded-md shadow-md rounded-lg bg-green-100">
-                        <TbCircleNumber3Filled size={40} className="text-green-500" />
-                        <div>
-                            <h3 className="text-xl font-semibold text-gray-900">Quality Assurance</h3>
-                            <p className="text-gray-600">We ensure the best quality in all our services.</p>
-                        </div>
-                    </div>
-                    <div className="flex items-center space-x-4 border border-gray-300 lg:h-20 lg:ps-5 lg:mt-12 rounded-md shadow-md rounded-lg bg-green-100">
-                        <TbCircleNumber4Filled size={40} className="text-green-500" />
-                        <div>
-                            <h3 className="text-xl font-semibold text-gray-900">Flexible Scheduling</h3>
-                            <p className="text-gray-600">Learn at your own pace with flexible scheduling options.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+
+      {/* Divider */}
+      <hr className="border-gray-600 my-8" />
+
+      {/* Bottom Footer */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="text-center text-gray-400 leading-relaxed">© {currentYear} OZLON LEARNING. All rights reserved.</p>
+      </div>
+    </footer>
         </div>
+        {/* END OF CONTACT + FOOTER */}
     </div>
 
-    {/* END OF ABOUT */}
 
-    {/* PACKAGE */}
-    <div id='package'>
-        <div className='container mx-auto mt-24'>
-            
-        </div>
-    </div>
-    {/* END OF PACKAGE*/}
-    </div>
+
+
+
   )
 }
 
