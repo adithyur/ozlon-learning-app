@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useSpring, animated, config } from 'react-spring';
+import { useSpring, animated } from 'react-spring';
 
 import { Button } from '@headlessui/react';
 import { TbArrowBadgeDown, TbCircleNumber1Filled, TbCircleNumber2Filled, TbCircleNumber3Filled, TbCircleNumber4Filled} from "react-icons/tb";
 import { GiOnTarget } from "react-icons/gi";
 import { RiTeamLine } from "react-icons/ri";
-
+import { FaWhatsapp } from "react-icons/fa6";
 import { FaUserGraduate, FaHandsHelping, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 import { MdSecurity, MdDateRange, MdVerified } from 'react-icons/md';
 import { GiTeacher, GiBookPile } from 'react-icons/gi';
@@ -73,21 +73,12 @@ function Home() {
 
   const packages = [
     {
-      level: "Class 1-5",
+      level: "Class 1-10",
       subjects: "All Subjects",
       options: [
         { ratio: "1 Student - 1 Teacher", icon: <GiBookPile size={40} />, description: "Personalized one-on-one tutoring for all subjects. Tailored learning plans. Flexible scheduling." },
         { ratio: "4 Students - 1 Teacher", icon: <RiTeamLine size={40} />, description: "Small group sessions for personalized attention. Collaborative learning environment. All subjects covered with interactive lessons." },
         { ratio: "10 Students - 1 Teacher", icon: <GiTeacher size={40} />, description: "Group learning with peers. Engaging and interactive classes for all subjects. Balanced teacher-student interaction." },
-      ],
-    },
-    {
-      level: "Class 6-9",
-      subjects: "All Subjects",
-      options: [
-        { ratio: "1 Student - 1 Teacher", icon: <GiBookPile size={40} />, description: "Individualized tutoring across all subjects. Customized study plans to meet each student's needs. Focus on critical thinking and problem-solving skills." },
-        { ratio: "4 Students - 1 Teacher", icon: <RiTeamLine size={40} />, description: "Small group instruction for better engagement. Enhanced peer interaction alongside teacher guidance. Comprehensive coverage of all subjects." },
-        { ratio: "10 Students - 1 Teacher", icon: <GiTeacher size={40} />, description: "Group classes that encourage discussion and interaction. All subjects taught with a focus on core concepts. Balance between individual attention and group learning." },
       ],
     },
     {
@@ -103,6 +94,15 @@ function Home() {
 
   return (
     <div>
+
+        <a 
+            href="https://wa.me/yourphonenumber" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="fixed w-16 lg:mr-16 h-16 bottom-8 right-10 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg z-50 transition-transform duration-300 hover:bg-green-600 hover:scale-105"
+        >
+            <FaWhatsapp className="text-3xl" />
+        </a>
 
         {/* NAVBAR */}
 
@@ -192,14 +192,18 @@ function Home() {
                         Empowering students with unparalleled educational opportunities, we strive to pave the way for a brighter future through our  commitment to providing the highest quality education.
                     </p>
                     <Button
-                            className='mt-10 flex bg-green-400 rounded-lg border border-green-400 font-bold text-white lg:ms-16 lg:px-8 py-4 explr-btn'
-                            onClick={handleEXPLOREButtonClick}
+                        className='hidden sm:hidden md:flex mt-10 bg-green-400 rounded-lg border border-green-400 font-bold text-white md:ms-10 lg:ms-16 md:px-4 lg:px-8 py-4 explr-btn'
+                        onClick={handleEXPLOREButtonClick}
                     >
-                        EXPLORE MORE <TbArrowBadgeDown size={24} className='ms-1'/>
+                        <div className="flex items-center"> {/* Added a div wrapper with flex */}
+                            EXPLORE MORE 
+                            <TbArrowBadgeDown size={24} className='ms-1'/>
+                        </div>
                     </Button>
+
                 </div>
                 <div className='mt-24'>
-                    <img src={`${process.env.PUBLIC_URL}/home2.png`} alt='Home'/>
+                    <img src={`${process.env.PUBLIC_URL}/home1.png`} alt='Home'/>
                 </div>
             </div>
             <div id='seatbook' className='mt-28'>
@@ -346,8 +350,8 @@ function Home() {
                         <div className="flex items-center space-x-4 border border-gray-300 lg:h-20 lg:ps-5 mx-5 mt-5 lg:mt-12 rounded-md shadow-md rounded-lg bg-green-100">
                             <TbCircleNumber3Filled size={40} className="text-green-500" />
                             <div>
-                                <h3 className="text-xl font-semibold text-gray-900">Topper Prizes</h3>
-                                <p className="text-gray-600">We reward our top-performing students with exciting prizes.</p>
+                                <h3 className="text-xl font-semibold text-gray-900">Exciting scholarships</h3>
+                                <p className="text-gray-600">We reward our top-performing students with exciting scholarships.</p>
                             </div>
                         </div>
                         <div className="flex items-center space-x-4 border border-gray-300 lg:h-20 lg:ps-5 mx-5 mt-5 lg:mt-12 rounded-md shadow-md rounded-lg bg-green-100">
@@ -402,6 +406,10 @@ function Home() {
             <p className="mb-2 flex items-center contact-txt text-sm md:text-base lg:text-base">
                 <FaPhoneAlt className="text-green-500 mr-2" />
                 <strong>Phone:</strong> &nbsp; +123 456 7890
+            </p>
+            <p className="mb-2 flex items-center contact-txt text-sm md:text-base lg:text-base">
+                <FaWhatsapp className="text-green-500 mr-2" />
+                <strong>WhatsApp:</strong> &nbsp; +123 456 7890
             </p>
             <p className="mb-2 flex items-center contact-txt text-sm md:text-base lg:text-base">
                 <FaEnvelope className="text-green-500 mr-2" />
