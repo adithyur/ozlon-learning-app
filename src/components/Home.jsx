@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSpring, animated } from 'react-spring';
-
+import emailjs from 'emailjs-com';
 import { Button } from '@headlessui/react';
 import { TbArrowBadgeDown, TbCircleNumber1Filled, TbCircleNumber2Filled, TbCircleNumber3Filled, TbCircleNumber4Filled} from "react-icons/tb";
 import { GiOnTarget } from "react-icons/gi";
@@ -9,14 +9,15 @@ import { FaWhatsapp } from "react-icons/fa6";
 import { FaUserGraduate, FaHandsHelping, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 import { MdSecurity, MdDateRange, MdVerified } from 'react-icons/md';
 import { GiTeacher, GiBookPile } from 'react-icons/gi';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../static/styles.css'
 
 
 function Home() {
 
     const [isOpen, setIsOpen] = useState(false);
-
+    const [activeLink, setActiveLink] = useState('#home');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -35,6 +36,45 @@ function Home() {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+};
+
+const sections = useRef({
+    '#home': null,
+    '#about': null,
+    '#programs': null,
+    '#contact': null
+});
+
+useEffect(() => {
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.25
+    };
+
+    const observerCallback = (entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setActiveLink(`#${entry.target.id}`);
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, options);
+
+    Object.values(sections.current).forEach(section => {
+        if (section) observer.observe(section);
+    });
+
+    return () => {
+        Object.values(sections.current).forEach(section => {
+            if (section) observer.unobserve(section);
+        });
+    };
+}, []);
 
   const arrowAnimation = useSpring({
     from: { transform: 'translateX(0px)' },
@@ -92,6 +132,42 @@ function Home() {
 
   const currentYear = new Date().getFullYear();
 
+  const serviceID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+  const templateID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+  const userID = process.env.REACT_APP_EMAILJS_USER_ID;
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    mobile: '',
+    message: '',
+});
+
+const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+        ...formData,
+        [name]: value,
+    });
+};
+
+const handleSubmit = (e) => {
+    e.preventDefault();
+
+    emailjs.send(
+        serviceID,
+        templateID,
+        formData,
+        userID
+    ).then((response) => {
+        //console.log('SUCCESS!', response.status, response.text);
+        toast.success('Form submitted successfully!');
+    }).catch((err) => {
+        //console.log('FAILED...', err);
+        toast.error('Form submission failed. Please try again.');
+    });
+};
+
   return (
     <div>
 
@@ -107,23 +183,39 @@ function Home() {
         {/* NAVBAR */}
 
         <div className={`fixed w-full top-0 z-50 ${isScrolled ? 'bg-white' : 'bg-transparent'}`}>
-            <div className={isScrolled ? 'container mx-auto' : 'mx-auto max-w-8xl px-4 sm:px-6 md:px-8 lg:px-10'}>
-                <div className="mx-auto max-w-8xl px-4 sm:px-6 md:px-8 lg:px-10">
+            <div className={isScrolled ? 'mx-auto max-w-8xl px-4 sm:px-6 md:px-8 lg:px-10' : 'mx-auto max-w-8xl px-4 sm:px-6 md:px-8 lg:px-10'}>
+                <div className="mx-auto max-w-8xl px-4 sm:px-6 md:px-6 lg:px-10">
                     <div className='flex items-center justify-between h-24'>
                         <div className="flex-shrink-0 navbar-logo">
-                            <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+                            <img className="h-60 w-auto -ms-10 mt-3" src={`${process.env.PUBLIC_URL}/logo.png`} alt="Your Company" />
                         </div>
-                        <div className="hidden sm:block sm:ml-6 md:flex md:ml-6">
+                        <div className="hidden sm:block sm:ml-6 md:flex md:-ml-7">
                             <div className="flex flex-grow justify-between navbar-opt">
-                                <a href="#home" className="text-white md:text-green-500 mx-3 md:mx-5 md:mx-3 lg:mx-8 text-sm text-sm md:text-base lg:text-lg xl:text-xl font-bold nav-txt">HOME</a>
-                                <a href="#about" className="text-gray-800 mx-3 md:mx-3 lg:mx-8 text-sm md:text-sm lg:text-lg xl:text-xl font-bold nav-txt">ABOUT US</a>
-                                <a href="#programs" className="text-gray-800 mx-3 rounded-md md:mx-3 lg:mx-8 text-sm md:text-sm lg:text-lg xl:text-xl font-bold nav-txt">PROGRAMS</a>
-                                <a href="#contact" className="text-gray-800 mx-3 rounded-md md:mx-3 lg:mx-8 text-sm md:text-sm lg:text-lg xl:text-xl font-bold nav-txt">CONTACT US</a>
+                                <a 
+                                    href="#home" 
+                                    className={`mx-3 rounded-md md:mx-2 lg:mx-8 text-sm md:text-sm lg:text-lg xl:text-xl font-bold nav-txt ${activeLink === '#home' ? 'text-green-500' : 'text-gray-800'}`}
+                                    onClick={() => handleLinkClick('#home')}
+                                >HOME</a>
+                                <a 
+                                    href="#about" 
+                                    className={`mx-3 rounded-md md:mx-2 lg:mx-8 text-sm md:text-sm lg:text-lg xl:text-xl font-bold nav-txt ${activeLink === '#about' ? 'text-green-500' : 'text-gray-800'}`}
+                                    onClick={() => handleLinkClick('#about')}
+                                >ABOUT US</a>
+                                <a 
+                                    href="#programs" 
+                                    className={`mx-3 rounded-md md:mx-2 lg:mx-8 text-sm md:text-sm lg:text-lg xl:text-xl font-bold nav-txt ${activeLink === '#programs' ? 'text-green-500' : 'text-gray-800'}`}
+                                    onClick={() => handleLinkClick('#programs')}
+                                >PROGRAMS</a>
+                                <a 
+                                    href="#contact" 
+                                    className={`mx-3 rounded-md md:mx-2 lg:mx-8 text-sm md:text-sm lg:text-lg xl:text-xl font-bold nav-txt ${activeLink === '#contact' ? 'text-green-500' : 'text-gray-800'}`}
+                                    onClick={() => handleLinkClick('#contact')}
+                                >CONTACT US</a>
                             </div>
                         </div>
                         <div>
                         <Button
-                            className='bg-green-400 rounded-lg border border-green-400 font-bold text-white px-4 py-4 nav-bk-btn'
+                            className='text-sm -ms-20 p-3 md:-mr-5 md:ms-0 md:text-base bg-green-400 rounded-lg border border-green-400 font-bold text-white md:px-1 md:py-3 nav-bk-btn'
                             onClick={handleButtonClick}
                         >
                             BOOK A FREE TRIAL
@@ -153,10 +245,26 @@ function Home() {
                 </div>
                 <div className={mobileMenuOpen ? 'block' : 'hidden'} id="mobile-menu" >
                     <div className="bg-white px-2 pt-2 pb-3 space-y-1">
-                        <a href="#home" className="bg-green-900 text-white block px-3 py-2 rounded-md text-base font-bold">HOME</a>
-                        <a href="#about" className="text-gray-300 hover:bg-green-900 hover:text-white block px-3 py-2 rounded-md text-base font-bold">ABOUT US</a>
-                        <a href="#programs" className="text-gray-300 hover:bg-green-900 hover:text-white block px-3 py-2 rounded-md text-base font-bold">PROGRAMS</a>
-                        <a href="#contact" className="text-gray-300 hover:bg-green-900 hover:text-white block px-3 py-2 rounded-md text-base font-bold">CONTACT US</a>
+                        <a 
+                            href="#home" 
+                            className={`block px-3 py-2 rounded-md text-base font-bold ${activeLink === '#home' ? 'bg-green-800 text-white' : 'text-gray-300 hover:bg-green-900 hover:text-white'}`}
+                            onClick={() => handleLinkClick('#home')}
+                        >HOME</a>
+                        <a 
+                            href="#about" 
+                            className={`block px-3 py-2 rounded-md text-base font-bold ${activeLink === '#about' ? 'bg-green-800 text-white' : 'text-gray-300 hover:bg-green-900 hover:text-white'}`}
+                            onClick={() => handleLinkClick('#about')}
+                            >ABOUT US</a>
+                        <a 
+                            href="#programs" 
+                            className={`block px-3 py-2 rounded-md text-base font-bold ${activeLink === '#programs' ? 'bg-green-800 text-white' : 'text-gray-300 hover:bg-green-900 hover:text-white'}`}
+                            onClick={() => handleLinkClick('#programs')}
+                        >PROGRAMS</a>
+                        <a 
+                            href="#contact" 
+                            className={`block px-3 py-2 rounded-md text-base font-bold ${activeLink === '#contact' ? 'bg-green-800 text-white' : 'text-gray-300 hover:bg-green-900 hover:text-white'}`}
+                            onClick={() => handleLinkClick('#contact')}
+                        >CONTACT US</a>
                     </div>
                 </div>
             </div>
@@ -165,14 +273,14 @@ function Home() {
 
 
         {/* HOME */}
-        <div id='home' className='container mx-auto px-4 mt-14'>
+        <div id='home' ref={el => sections.current['#home'] = el} className='container mx-auto px-4 mt-14'>
             <div className='flex flex-col md:flex-row lg:flex-row justify-between'>
                 <div className='my-5'>
                     <div className='flex'>
                         <h1 className='hidden sm:hidden md:block lg:block xl:block text-2xl font-bold tracking-wide md:my-10 md:ms-10 md:text-5xl lg:text-6xl lg:ms-14 lg:mt-24 text-black'>
                             Providing Best <br/> Education For <br/> <span className='text-green-800'> Brighter Future </span>
                         </h1>
-                        <h1 className='mt-10 sm:block md:hidden lg:hidden xl:hidden text-2xl font-bold tracking-wide md:my-10 md:ms-10 md:text-5xl lg:text-6xl lg:ms-14 lg:mt-24 text-black'>
+                        <h1 className='mt-16 ms-6 sm:block md:hidden lg:hidden xl:hidden text-2xl font-bold tracking-wide md:my-10 md:ms-10 md:text-5xl lg:text-6xl lg:ms-14 lg:mt-24 text-black'>
                             Providing Best Education For <span className='text-green-800'> Brighter Future </span>
                         </h1>
                         <animated.img
@@ -188,7 +296,7 @@ function Home() {
                     <p className='hidden sm:hidden md:block lg:hidden xl:hidden text-lg font-bold md:tracking-normal lg:tracking-wide md:my-10 md:ms-10 md:text-base lg:text-l lg:ms-14 lg:mt-4 text-black'>
                         Empowering students with unparalleled educational opportunities, we strive to pave the way for a brighter <br/> future through our  commitment to providing the highest quality education.
                     </p>
-                    <p className='max-w-lg sm:block md:hidden lg:hidden xl:hidden text-sm mt-10 font-bold tracking-normal lg:tracking-wide md:my-10 md:ms-10 md:text-base lg:text-l lg:ms-14 lg:mt-4 text-black'>
+                    <p className='max-w-lg sm:block md:hidden lg:hidden xl:hidden text-sm mt-12 ms-6 font-bold tracking-wide lg:tracking-wide md:my-10 md:ms-10 md:text-base lg:text-l lg:ms-14 lg:mt-4 text-black'>
                         Empowering students with unparalleled educational opportunities, we strive to pave the way for a brighter future through our  commitment to providing the highest quality education.
                     </p>
                     <Button
@@ -202,46 +310,73 @@ function Home() {
                     </Button>
 
                 </div>
-                <div className='mt-24'>
+                <div className='mt-10 md-24 lg-24'>
                     <img src={`${process.env.PUBLIC_URL}/home1.png`} alt='Home'/>
                 </div>
             </div>
             <div id='seatbook' className='mt-28'>
                 <div className="max-w-lg mx-auto bg-transparent p-8 border border-gray-300 rounded-md shadow-md">
                     <h2 className="text-2xl text-center font-semibold mb-4">Book A Seat For Your Kid</h2>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="mb-4 mt-5">
                             <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
-                            <input type="text" id="name" name="name" className="mt-1 block w-full rounded-md border-gray-300 h-12 shadow-lg focus:border-green-400 focus:ring focus:ring-green-200 focus:ring-opacity-250"/>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                className="mt-1 block w-full rounded-md border-gray-300 h-12 shadow-lg focus:border-green-400 focus:ring focus:ring-green-200 focus:ring-opacity-250"
+                            />
                         </div>
                         <div className="mb-4 mt-5">
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="email" id="email" name="email" className="mt-1 block w-full rounded-md border-gray-300 h-12 shadow-lg focus:border-green-400 focus:ring focus:ring-green-200 focus:ring-opacity-450"/>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email"      
+                                value={formData.email}
+                                onChange={handleChange}
+                                className="mt-1 block w-full rounded-md border-gray-300 h-12 shadow-lg focus:border-green-400 focus:ring focus:ring-green-200 focus:ring-opacity-450"
+                            />
                         </div>
                         <div className="mb-4 mt-5">
                             <label htmlFor="mobile" className="block text-sm font-medium text-gray-700">Mobile</label>
-                            <input type="tel" id="mobile" name="mobile" className="mt-1 block w-full rounded-md border-gray-300 h-12 shadow-lg focus:border-green-400 focus:ring focus:ring-green-200 focus:ring-opacity-650"/>
+                            <input 
+                                type="tel" 
+                                id="mobile" 
+                                name="mobile"
+                                value={formData.mobile}
+                                onChange={handleChange}
+                                className="mt-1 block w-full rounded-md border-gray-300 h-12 shadow-lg focus:border-green-400 focus:ring focus:ring-green-200 focus:ring-opacity-650"
+                            />
                         </div>
                         <div className="mb-4 mt-5">
                             <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
-                            <textarea id="message" name="message" rows="4" className="mt-1 block w-full rounded-md border-gray-300 shadow-lg focus:border-green-400 focus:ring focus:ring-green-200 focus:ring-opacity-50"></textarea>
+                            <textarea 
+                                id="message"
+                                name="message"
+                                value={formData.message}
+                                onChange={handleChange} 
+                                rows="4" 
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-lg focus:border-green-400 focus:ring focus:ring-green-200 focus:ring-opacity-50"
+                            ></textarea>
                         </div>
                         <div className="text-center mt-5">
                             <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">Submit</button>
                         </div>
                     </form>
+                    <ToastContainer />
                 </div>
             </div>
         </div>
         {/* END OF HOME */}
 
         {/* ABOUT */}
-        <div id='about' className='container mx-auto mt-14'>
+        <div id='about' ref={el => sections.current['#about'] = el} className='container mx-auto mt-14'>
             <div className='text-center'>
                 <h1 className='text-2xl px-6 md:px-6 font-extrabold tracking-wide md:text-3xl lg:text-4xl lg:mt-24 text-black'>
                     ABOUT US
                 </h1>
-                <p className='text-sm px-6 md:px-6 mt-10 font-bold tracking-normal lg:tracking-wide md:my-10 md:ms-10 md:text-xl lg:text-2xl lg:ms-14 lg:mt-4 text-black'>
+                <p className='text-lg px-6 md:px-6 mt-10 font-bold tracking-normal lg:tracking-wide md:my-10 md:ms-10 md:text-xl lg:text-2xl lg:ms-14 lg:mt-4 text-black'>
                     Welcome to <span className='text-green-800'> OZLON </span>, where learning knows no boundaries!
                 </p>
             </div>
@@ -369,7 +504,7 @@ function Home() {
         {/* END OF ABOUT */}
 
         {/* PACKAGE */}
-        <div id='programs' className='bg-white'>
+        <div id='programs' ref={el => sections.current['#programs'] = el} className='bg-white'>
             <div className="max-w-6xl mx-auto mt-20 p-8">
                 <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">PROGRAMS</h2>
                 {packages.map((pkg, index) => (
@@ -393,7 +528,7 @@ function Home() {
         {/* END OF PACKAGE*/}
 
         {/* CONTACT + FOOTER */}
-        <div id='contact'>
+        <div id='contact' ref={el => sections.current['#contact'] = el}>
         <footer className="bg-gray-900 text-gray-200 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-between">
         {/* Contact Us Section */}

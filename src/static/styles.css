@@ -1,3 +1,20 @@
+ /* LOADER */
+
+ @keyframes chase {
+  50% {
+      transform: scale(1);
+  }
+  100% {
+      transform: scale(0);
+  }
+}
+
+.animate-chase {
+  animation: chase 0.6s infinite alternate;
+}
+
+ 
+ 
  /* WHATSAPP POPUP */
 
  .whatsapp_float {
@@ -20,8 +37,6 @@
 .whatsapp-icon {
   justify-content: center;
 }
-
- 
  
  /* NAVBAR */
  
