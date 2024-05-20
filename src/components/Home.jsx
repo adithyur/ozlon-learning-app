@@ -45,6 +45,7 @@ const sections = useRef({
     '#home': null,
     '#about': null,
     '#programs': null,
+    '#foundation': null,
     '#contact': null
 });
 
@@ -113,21 +114,25 @@ useEffect(() => {
 
   const packages = [
     {
-      level: "Class 1-10",
+      level: "Class 1-12",
       subjects: "All Subjects",
       options: [
         { ratio: "1 Student - 1 Teacher", icon: <GiBookPile size={40} />, description: "Personalized one-on-one tutoring for all subjects. Tailored learning plans. Flexible scheduling." },
         { ratio: "4 Students - 1 Teacher", icon: <RiTeamLine size={40} />, description: "Small group sessions for personalized attention. Collaborative learning environment. All subjects covered with interactive lessons." },
         { ratio: "10 Students - 1 Teacher", icon: <GiTeacher size={40} />, description: "Group learning with peers. Engaging and interactive classes for all subjects. Balanced teacher-student interaction." },
       ],
-    },
+    }
+  ];
+
+  const foundation = [
     {
-      level: "Class 11-12",
-      subjects: "Maths, English, Physics, Chemistry, Biology, Computer Science",
       options: [
-        { ratio: "10 Students - 1 Teacher", icon: <GiTeacher size={40} />, description: "Group classes that encourage discussion and interaction. Focused instruction on Maths, English, Physics, Chemistry, Biology, and Computer Science. Engaging and collaborative learning environment." },
+        { ratio: "NEET", icon: <GiBookPile size={40} />, description: "Personalized one-on-one tutoring for all subjects. Tailored learning plans. Flexible scheduling." },
+        { ratio: "JEE", icon: <RiTeamLine size={40} />, description: "Small group sessions for personalized attention. Collaborative learning environment. All subjects covered with interactive lessons." },
+        { ratio: "PSC", icon: <GiTeacher size={40} />, description: "Group learning with peers. Engaging and interactive classes for all subjects. Balanced teacher-student interaction." },
+        { ratio: "SSC", icon: <GiTeacher size={40} />, description: "Group learning with peers. Engaging and interactive classes for all subjects. Balanced teacher-student interaction." },
       ],
-    },
+    }
   ];
 
   const currentYear = new Date().getFullYear();
@@ -170,7 +175,6 @@ const handleSubmit = (e) => {
 
   return (
     <div>
-
         <a 
             href="https://wa.me/yourphonenumber" 
             target="_blank" 
@@ -207,6 +211,11 @@ const handleSubmit = (e) => {
                                     onClick={() => handleLinkClick('#programs')}
                                 >PROGRAMS</a>
                                 <a 
+                                    href="#foundation" 
+                                    className={`mx-3 rounded-md md:mx-2 lg:mx-8 text-sm md:text-sm lg:text-lg xl:text-xl font-bold nav-txt ${activeLink === '#foundation' ? 'text-green-500' : 'text-gray-800'}`}
+                                    onClick={() => handleLinkClick('#foundation')}
+                                >FOUNDATION</a>
+                                <a 
                                     href="#contact" 
                                     className={`mx-3 rounded-md md:mx-2 lg:mx-8 text-sm md:text-sm lg:text-lg xl:text-xl font-bold nav-txt ${activeLink === '#contact' ? 'text-green-500' : 'text-gray-800'}`}
                                     onClick={() => handleLinkClick('#contact')}
@@ -218,7 +227,7 @@ const handleSubmit = (e) => {
                             className='text-sm -ms-20 p-3 md:-mr-5 md:ms-0 md:text-base bg-green-400 rounded-lg border border-green-400 font-bold text-white md:px-1 md:py-3 nav-bk-btn'
                             onClick={handleButtonClick}
                         >
-                            BOOK A FREE TRIAL
+                            FREE SESSION
                         </Button>
                         </div>
                         <div className="flex sm:hidden">
@@ -261,6 +270,11 @@ const handleSubmit = (e) => {
                             onClick={() => handleLinkClick('#programs')}
                         >PROGRAMS</a>
                         <a 
+                            href="#foundation" 
+                            className={`block px-3 py-2 rounded-md text-base font-bold ${activeLink === '#foundation' ? 'bg-green-800 text-white' : 'text-gray-300 hover:bg-green-900 hover:text-white'}`}
+                            onClick={() => handleLinkClick('#foundation')}
+                        >FOUNDATIONAL COURSE</a>
+                        <a 
                             href="#contact" 
                             className={`block px-3 py-2 rounded-md text-base font-bold ${activeLink === '#contact' ? 'bg-green-800 text-white' : 'text-gray-300 hover:bg-green-900 hover:text-white'}`}
                             onClick={() => handleLinkClick('#contact')}
@@ -278,10 +292,10 @@ const handleSubmit = (e) => {
                 <div className='my-5'>
                     <div className='flex'>
                         <h1 className='hidden sm:hidden md:block lg:block xl:block text-2xl font-bold tracking-wide md:my-10 md:ms-10 md:text-5xl lg:text-6xl lg:ms-14 lg:mt-24 text-black'>
-                            Providing Best <br/> Education For <br/> <span className='text-green-800'> Brighter Future </span>
+                            Providing The Best <br/> Education For <br/> <span className='text-green-800'> Brighter Future </span>
                         </h1>
                         <h1 className='mt-16 ms-6 sm:block md:hidden lg:hidden xl:hidden text-2xl font-bold tracking-wide md:my-10 md:ms-10 md:text-5xl lg:text-6xl lg:ms-14 lg:mt-24 text-black'>
-                            Providing Best Education For <span className='text-green-800'> Brighter Future </span>
+                            Providing The Best Education For <span className='text-green-800'> Brighter Future </span>
                         </h1>
                         <animated.img
                             src={`${process.env.PUBLIC_URL}/arrow.png`}
@@ -291,13 +305,13 @@ const handleSubmit = (e) => {
                             />                    
                     </div>
                     <p className='hidden sm:hidden md:hidden lg:block xl:block text-lg font-bold md:tracking-normal lg:tracking-wide md:my-10 md:ms-10 md:text-base lg:text-xl lg:ms-14 lg:mt-4 text-black'>
-                        Empowering students with unparalleled educational <br/> opportunities, we  strive to pave the way for a brighter future <br/>through our commitment to providing the highest quality education.
+                        Empowering students with unparalleled education ,<br/> we  strive to pave the way for a brighter future <br/>through our commitment to providing the highest quality education.
                     </p>
                     <p className='hidden sm:hidden md:block lg:hidden xl:hidden text-lg font-bold md:tracking-normal lg:tracking-wide md:my-10 md:ms-10 md:text-base lg:text-l lg:ms-14 lg:mt-4 text-black'>
-                        Empowering students with unparalleled educational opportunities, we strive to pave the way for a brighter <br/> future through our  commitment to providing the highest quality education.
+                        Empowering students with unparalleled education, we strive to pave the way for a brighter <br/> future through our  commitment to providing the highest quality education.
                     </p>
                     <p className='max-w-lg sm:block md:hidden lg:hidden xl:hidden text-sm mt-12 ms-6 font-bold tracking-wide lg:tracking-wide md:my-10 md:ms-10 md:text-base lg:text-l lg:ms-14 lg:mt-4 text-black'>
-                        Empowering students with unparalleled educational opportunities, we strive to pave the way for a brighter future through our  commitment to providing the highest quality education.
+                        Empowering students with unparalleled education, we strive to pave the way for a brighter future through our  commitment to providing the highest quality education.
                     </p>
                     <Button
                         className='hidden sm:hidden md:flex mt-10 bg-green-400 rounded-lg border border-green-400 font-bold text-white md:ms-10 lg:ms-16 md:px-4 lg:px-8 py-4 explr-btn'
@@ -526,6 +540,29 @@ const handleSubmit = (e) => {
             </div>
         </div>
         {/* END OF PACKAGE*/}
+
+        {/* FOUNDATION COURSE */}
+        <div id='foundation' ref={el => sections.current['#foundation'] = el} className='bg-white'>
+            <div className="max-w-6xl mx-auto mt-20 p-8">
+                <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">FOUNDATION CLASS</h2>
+                {foundation.map((pkg, index) => (
+                    <div key={index} className="mb-12">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {pkg.options.map((option, idx) => (
+                            <div key={idx} className="p-8 border border-gray-300 rounded-lg shadow-md bg-white flex flex-col items-center text-center transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:border-green-600">
+                                <div className="text-green-600 mb-4">
+                                    {option.icon}
+                                </div>
+                                <h4 className="text-2xl font-bold text-green-600 mb-4">{option.ratio}</h4>
+                                <p className="text-gray-700">{option.description}</p>
+                            </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+        {/* FOUNDATION COURSE*/}
 
         {/* CONTACT + FOOTER */}
         <div id='contact' ref={el => sections.current['#contact'] = el}>
