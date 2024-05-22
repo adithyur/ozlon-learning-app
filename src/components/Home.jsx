@@ -117,9 +117,9 @@ useEffect(() => {
       level: "Class 1-12",
       subjects: "All Subjects",
       options: [
-        { ratio: "1 Student - 1 Teacher", icon: <GiBookPile size={40} />, description: "Personalized one-on-one tutoring for all subjects. Tailored learning plans. Flexible scheduling." },
-        { ratio: "4 Students - 1 Teacher", icon: <RiTeamLine size={40} />, description: "Small group sessions for personalized attention. Collaborative learning environment. All subjects covered with interactive lessons." },
-        { ratio: "10 Students - 1 Teacher", icon: <GiTeacher size={40} />, description: "Group learning with peers. Engaging and interactive classes for all subjects. Balanced teacher-student interaction." },
+        { ratio: "1 Teacher - 1 Student", icon: <GiBookPile size={40} />, description: "Personalized one-on-one tutoring for all subjects. Tailored learning plans. Flexible scheduling." },
+        { ratio: "1 Teacher - 4 Students", icon: <RiTeamLine size={40} />, description: "Small group sessions for personalized attention. Collaborative learning environment. All subjects covered with interactive lessons." },
+        { ratio: "1 Teacher - 10 Students", icon: <GiTeacher size={40} />, description: "Group learning with peers. Engaging and interactive classes for all subjects. Balanced teacher-student interaction." },
       ],
     }
   ];
@@ -434,45 +434,45 @@ const handleSubmit = (e) => {
             </div>
 
             <div className="max-w-7xl mx-auto mt-20 p-8 bg-gray-100 rounded-lg shadow-lg">
-      <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">What We Offer</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div className="flex items-center space-x-4">
-          <FaUserGraduate size={40} className="text-green-500" />
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900">Expert Tutors</h3>
-            <p className="text-gray-600">Learn from industry experts and experienced educators.</p>
-          </div>
-        </div>
-        <div className="flex items-center space-x-4">
-          <FaHandsHelping size={40} className="text-green-500" />
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900">Interactive Learning</h3>
-            <p className="text-gray-600">Engage in interactive and enjoyable learning experiences.</p>
-          </div>
-        </div>
-        <div className="flex items-center space-x-4">
-          <MdSecurity size={40} className="text-green-500" />
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900">Safe and Secure</h3>
-            <p className="text-gray-600">Your data and privacy are our top priority.</p>
-          </div>
-        </div>
-        <div className="flex items-center space-x-4">
-          <MdDateRange size={40} className="text-green-500" />
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900">Book a Seat after Free Trial</h3>
-            <p className="text-gray-600">Try our services with a free trial before you book a seat.</p>
-          </div>
-        </div>
-        <div className="flex items-center space-x-4">
-          <MdVerified size={40} className="text-green-500" />
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900">Quality Assurance</h3>
-            <p className="text-gray-600">We ensure the best quality in all our services.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+                <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">What We Offer</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="flex items-center space-x-4">
+                    <FaUserGraduate size={40} className="text-green-500" />
+                    <div>
+                        <h3 className="text-xl font-semibold text-gray-900">Expert Tutors</h3>
+                        <p className="text-gray-600">Learn from industry experts and experienced educators.</p>
+                    </div>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                    <FaHandsHelping size={40} className="text-green-500" />
+                    <div>
+                        <h3 className="text-xl font-semibold text-gray-900">Interactive Learning</h3>
+                        <p className="text-gray-600">Engage in interactive and enjoyable learning experiences.</p>
+                    </div>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                    <MdSecurity size={40} className="text-green-500" />
+                    <div>
+                        <h3 className="text-xl font-semibold text-gray-900">Safe and Secure</h3>
+                        <p className="text-gray-600">Your data and privacy are our top priority.</p>
+                    </div>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                    <MdDateRange size={40} className="text-green-500" />
+                    <div>
+                        <h3 className="text-xl font-semibold text-gray-900">Book a Seat after Free Trial</h3>
+                        <p className="text-gray-600">Try our services with a free trial before you book a seat.</p>
+                    </div>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                    <MdVerified size={40} className="text-green-500" />
+                    <div>
+                        <h3 className="text-xl font-semibold text-gray-900">Quality Assurance</h3>
+                        <p className="text-gray-600">We ensure the best quality in all our services.</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
             <div className='lg:mx-24'>
                 <h1 className='text-2xl mt-8 ms-4 font-bold tracking-wide md:text-3xl lg:text-4xl lg:mt-24 text-black'>
                     Why Students Choose Us for Gaining Knowledge !
